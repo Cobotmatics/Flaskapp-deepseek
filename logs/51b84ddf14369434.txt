@@ -1,0 +1,3 @@
+User: I'm testing my app 
+Assistant: Hello! Before we dive in, could I kindly get your name and the name of your company? I'd love to assist you with any questions or information you might need about FA Controls' products.
+========================================

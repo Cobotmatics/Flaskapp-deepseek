@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ gpt_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .chat-log {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        .chat-log .message {
+            margin-bottom: 15px;
+        }
+        .chat-log .user {
+            font-weight: bold;
+            color: #007BFF;
+        }
+        .chat-log .assistant {
+            font-weight: bold;
+            color: #28A745;
+        }
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+        .input-container input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .input-container button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .input-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h1>{{ gpt_name }}</h1>
+        <p>{{ gpt_description }}</p>
+        
+        <div class="chat-log" id="chat-log">
+    {% for message in conversation %}
+        {% if message.role != 'system' %} <!-- Exclude system messages -->
+            <div class="message">
+                <span class="{{ message.role }}">{{ message.role.capitalize() }}:</span>
+                <span>{{ message.content | safe }}</span> <!-- Render rich text -->
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+
+        <form action="/chat" method="post" class="input-container">
+            <input type="text" name="user_input" placeholder="Type your message here..." required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</body>
+</html>

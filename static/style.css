@@ -1,0 +1,119 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+/* Chat Container */
+.chat-container {
+    width: 100%;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    overflow: hidden;
+}
+
+/* Header */
+.chat-header {
+    background: #005bb5;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+/* Chat Window */
+.chat-window {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Messages */
+.message {
+    display: flex;
+}
+
+.message-bubble {
+    max-width: 70%;
+    padding: 15px;
+    border-radius: 15px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+/* Bot Message */
+.message.assistant .message-bubble {
+    background: #f1f0f0;
+    color: #333;
+}
+
+/* User Message */
+.message.user .message-bubble {
+    background: #007BFF;
+    color: #fff;
+    align-self: flex-end;
+}
+
+/* Link Styling */
+.message-bubble a {
+    color: #005bb5;
+    text-decoration: underline;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.message-bubble a:hover {
+    color: #003a8c;
+}
+
+/* Chat Form */
+.chat-form {
+    display: flex;
+    padding: 15px;
+    background: #f4f4f9;
+    border-top: 1px solid #ddd;
+}
+
+.chat-form input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.chat-form button {
+    background: #005bb5;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s;
+}
+
+.chat-form button:hover {
+    background: #003a8c;
+}
