@@ -1,0 +1,3 @@
+User: I'm testing my app 
+Assistant: Thank you for reaching out! Before we proceed, may I kindly ask for your name and the name of your company? This will help me assist you better. 😊
+========================================

@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, session
-from openai import OpenAI
 import os
 from dotenv import load_dotenv
+import requests  # Import requests for making HTTP requests to DeepSeek API
 
 # Load environment variables from .env file
 load_dotenv()
@@ -11,12 +11,12 @@ app = Flask(__name__)
 app.secret_key = os.urandom(24)  # Unique session key for security
 application = app
 
-# Fetch the OpenAI API key from environment variables
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+# Fetch the DeepSeek API key from environment variables
+DEEPSEEK_API_KEY = os.getenv('DEEPSEEK_API_KEY')
 
 # Ensure the API key exists
-if not OPENAI_API_KEY:
-    raise ValueError("OpenAI API key not found in environment variables")
+if not DEEPSEEK_API_KEY:
+    raise ValueError("DeepSeek API key not found in environment variables")
 
 # GPT configuration details
 GPT_NAME = "FA Controls Sales GPT"
@@ -68,9 +68,6 @@ This GPT specializes in persuading visitors to adopt robotics solutions to autom
 This chatbot is designed and built by our Sales General Manager, Jacky Lim Wai Hoon. All rights reserved!
 """
 
-# Initialize OpenAI client
-client = OpenAI(api_key=OPENAI_API_KEY)
-
 # Define log directory
 LOG_DIR = os.path.join(os.getcwd(), 'logs')
 os.makedirs(LOG_DIR, exist_ok=True)  # Ensure the logs directory exists
@@ -100,12 +97,22 @@ def chat():
     conversation.append({"role": "user", "content": user_input})
 
     try:
-        # Get GPT response
-        response = client.chat.completions.create(
-            model="gpt-4o",
-            messages=conversation
+        # Make a request to the DeepSeek API
+        headers = {
+            "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
+            "Content-Type": "application/json"
+        }
+        data = {
+            "model": "deepseek-chat",  # Replace with the appropriate DeepSeek model
+            "messages": conversation
+        }
+        response = requests.post(
+            "https://api.deepseek.com/v1/chat/completions",  # Replace with the actual DeepSeek API endpoint
+            headers=headers,
+            json=data
         )
-        assistant_response = response.choices[0].message.content
+        response_data = response.json()
+        assistant_response = response_data['choices'][0]['message']['content']
 
         # Append the assistant's response to the conversation
         conversation.append({"role": "assistant", "content": assistant_response})
